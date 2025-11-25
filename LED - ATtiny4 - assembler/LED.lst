@@ -1,0 +1,57 @@
+gavrasm Gerd's AVR assembler version 5.1 (C)2021 by DG4FAC
+----------------------------------------------------------
+
+Path:        D:\Assembler\LED - ATtiny4 - assembler\
+Source file: LED.asm
+Hex file:    LED.hex
+Eeprom file: LED.eep
+Compiled:    08.05.2025, 10:34:26
+Pass:        2
+
+     1: .nolist
+     4: 
+     5: ; **********************************
+     6: ;  P O R T S   A N D   P I N S
+     7: ; **********************************
+     8: .equ pDirB = DDRB     ; Port B direction register
+     9: .equ pOutB = PORTB    ; Port B output register
+    10: .equ bPinB0 = PORTB0  ; Pin 0 on Port B
+    11: 
+    12: .cseg
+    13: .org 000000
+    14: ;
+    15: ; **********************************
+    16: ; R E S E T  &  I N T - V E C T O R S
+    17: ; **********************************
+    18: 000000   C000  rjmp Main ; Reset vector
+    19: 
+    20: Main:
+    21:     ; Set PORTB0 as an output pin
+    22: 000001   9A08  sbi pDirB, bPinB0 ; Set Pin 0 of Port B as output
+    23: 
+    24:     ; Light up the LED connected to PORTB0
+    25: 000002   9A10  sbi pOutB, bPinB0 ; Set PORTB0 high (LED on)
+    26: 
+    27: 000003   CFFD  rjmp Main         ; Infinite loop to keep LED on
+    28: 
+
+List of symbols:
+Type nDef nUsed             Decimalval           Hexval Name
+  T     1     1                     13               0D ATTINY4
+  L     1     4                      1               01 MAIN
+  C     1     0                     25               19 NOW_Y
+  C     1     0                      5               05 NOW_M
+  C     1     0                      8               08 NOW_D
+  C     1     0                  45785             B2D9 NOW_I
+  C     1     1                      1               01 PDIRB
+  C     1     1                      2               02 POUTB
+  C     1     2                      0               00 BPINB0
+   No macros.
+
+Program             :        4 words.
+Constants           :        0 words.
+Total program memory:        4 words.
+Eeprom space        :        0 bytes.
+Data segment        :        0 bytes.
+Compilation completed, no errors.
+Compilation ended 08.05.2025, 10:34:26

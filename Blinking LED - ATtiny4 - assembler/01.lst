@@ -1,0 +1,69 @@
+gavrasm Gerd's AVR assembler version 5.1 (C)2021 by DG4FAC
+----------------------------------------------------------
+
+Path:        D:\Assembler\Blinking LED - ATtiny4 - assembler\
+Source file: 01.asm
+Hex file:    01.hex
+Eeprom file: 01.eep
+Compiled:    22.05.2025, 10:49:53
+Pass:        2
+
+     1:                         .include "tn4def.inc"
+ -> Warning 009: Include defs not necessary, using internal values!
+   File: D:\Assembler\Blinking LED - ATtiny4 - assembler\01.asm, Line: 1
+   Source line:                         .include "tn4def.inc"
+     2: 
+     3: .cseg
+     4: .org 0x0000
+     5: 000000   C000  rjmp Main
+     6: 
+     7: Main:
+     8: 000001   9A08  sbi DDRB, 0      ; PB0 as output
+     9: 
+    10: Loop:
+    11: 000002   9A10  sbi PORTB, 0     ; LED ON
+    12: 000003   D003  rcall Delay1s
+    13: 
+    14: 000004   9810  cbi PORTB, 0     ; LED OFF
+    15: 000005   D001  rcall Delay1s
+    16: 
+    17: 000006   CFFB  rjmp Loop
+    18: 
+    19: Delay1s:
+    20: 000007   E34E  ldi r20, 62
+    21: Outer:
+    22: 000008   EF5F  ldi r21, 255
+    23: Middle:
+    24: 000009   EF6F  ldi r22, 255
+    25: Inner:
+    26: 00000A   956A  dec r22
+    27: 00000B   F7F1  brne Inner
+    28: 00000C   955A  dec r21
+    29: 00000D   F7D9  brne Middle
+    30: 00000E   954A  dec r20
+    31: 00000F   F7C1  brne Outer
+    32: 000010   9508  ret
+    33: 
+
+List of symbols:
+Type nDef nUsed             Decimalval           Hexval Name
+  T     1     1                     13               0D ATTINY4
+  L     1     2                      1               01 MAIN
+  L     1     2                      2               02 LOOP
+  L     1     4                      7               07 DELAY1S
+  L     1     2                      8               08 OUTER
+  L     1     2                      9               09 MIDDLE
+  L     1     2                     10               0A INNER
+  C     1     0                     25               19 NOW_Y
+  C     1     0                      5               05 NOW_M
+  C     1     0                     22               16 NOW_D
+  C     1     0                  45799             B2E7 NOW_I
+   No macros.
+
+Program             :       17 words.
+Constants           :        0 words.
+Total program memory:       17 words.
+Eeprom space        :        0 bytes.
+Data segment        :        0 bytes.
+Compilation completed, no errors.
+Compilation ended 22.05.2025, 10:49:53
